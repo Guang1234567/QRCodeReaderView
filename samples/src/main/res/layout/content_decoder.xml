@@ -15,6 +15,11 @@
       android:layout_alignParentTop="true"
       />
 
+  <com.example.qr_readerexample.AutoScannerView
+      android:id="@+id/autoscanner_view"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
   <com.example.qr_readerexample.PointsOverlayView
       android:id="@+id/points_overlay_view"
       android:layout_width="match_parent"

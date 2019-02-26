@@ -19,6 +19,7 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Point;
 import android.graphics.PointF;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -348,10 +349,12 @@ public class QRCodeReaderView extends SurfaceView
         private final WeakReference<Map<DecodeHintType, Object>> hintsRef;
         private final QRToViewPointTransformer qrToViewPointTransformer =
                 new QRToViewPointTransformer();
+        private final Point viewSize;
 
         DecodeFrameTask(QRCodeReaderView view, Map<DecodeHintType, Object> hints) {
             viewRef = new WeakReference<>(view);
             hintsRef = new WeakReference<>(hints);
+            viewSize = new Point(view.getWidth(), view.getHeight());
         }
 
         @Override
@@ -363,7 +366,7 @@ public class QRCodeReaderView extends SurfaceView
 
             final PlanarYUVLuminanceSource source =
                     view.mCameraManager.buildLuminanceSource(params[0], view.mPreviewWidth,
-                            view.mPreviewHeight);
+                            view.mPreviewHeight, viewSize);
 
             final HybridBinarizer hybBin = new HybridBinarizer(source);
             final BinaryBitmap bitmap = new BinaryBitmap(hybBin);
@@ -418,8 +421,18 @@ public class QRCodeReaderView extends SurfaceView
                     view.mCameraManager.getPreviewCameraId()
                             == Camera.CameraInfo.CAMERA_FACING_FRONT;
 
-            return qrToViewPointTransformer.transform(resultPoints, isMirrorCamera, orientation,
+            /*
+            PointF[] qrPoints = qrToViewPointTransformer.transform(resultPoints, isMirrorCamera, orientation,
                     viewSize, cameraPreviewSize);
+            */
+            Rect framingRectInPreview = view.mCameraManager.getFramingRectInPreview(viewSize);
+            PointF[] qrPoints = qrToViewPointTransformer.transform(resultPoints, isMirrorCamera, orientation,
+                    viewSize, framingRectInPreview, cameraPreviewSize);
+            return qrPoints;
         }
+    }
+
+    public CameraManager getCameraManager() {
+        return mCameraManager;
     }
 }
