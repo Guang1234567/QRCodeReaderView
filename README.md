@@ -1,3 +1,13 @@
+Fork Change Log
+
+* 2019-02-26
+
+[[feature] add scan effect ui that like wechat](https://github.com/Guang1234567/QRCodeReaderView/commit/10048dbe5be397fb9aa738b308918da32249c74f).
+
+===
+
+
+
 QRCodeReaderView [![Download](https://api.bintray.com/packages/dlazaro66/maven/QRCodeReaderView/images/download.svg) ](https://bintray.com/dlazaro66/maven/QRCodeReaderView/_latestVersion) [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-QRCodeReaderView-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1891) [![Build Status](https://travis-ci.org/dlazaro66/QRCodeReaderView.svg?branch=master)](https://travis-ci.org/dlazaro66/QRCodeReaderView)
 ===
 
